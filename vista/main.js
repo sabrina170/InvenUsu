@@ -142,9 +142,9 @@ $(document).on("click", ".btnBorrar", function(){
                 tablaPersonas.row(fila.parents('tr')).remove().draw();
             }
         });
+        window.location.replace("admin.php");
     }   
-    header('location:admin.php');
-    
+   
 });
     
 $("#formPersonas").submit(function(e){
