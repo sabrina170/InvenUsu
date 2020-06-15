@@ -162,9 +162,7 @@ if (isset($_SESSION["usuario"])) {
             <div class="col">
                 <input type="number" class="form-control" placeholder="Id Cliente" name="xid"/>
             </div>
-            <div class="col">
-                <input type="date" class="form-control" placeholder="Fecha" name="xfecha"/>
-            </div>
+           
             <div class="col">
                 <input type="number"class="form-control" placeholder="Codigo" name="xcodigo"/>
             </div>    
