@@ -249,14 +249,7 @@ if (isset($_SESSION["usuario"])) {
                         <tbody>
                             <?php                            
                             foreach($data3 as $dat) {
-                                $respuesta = $dat['Estado'];
-                                if($dat['Estado']=='Falta'){
-                                    echo $color="red";
-                                }if($dat['Estado']=='Proceso'){
-                                    echo $color='yellow';
-                                }if($dat['Estado']=='Entregado'){
-                                    echo $color='green';
-                                }                                                        
+                                                                                      
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
@@ -268,7 +261,7 @@ if (isset($_SESSION["usuario"])) {
                                 <td><?php echo $dat['Guia_Trans'] ?></td>
                                 <td><?php echo $dat['Guia_Remi'] ?></td>   
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
-                                <td><p color="<?php echo $color ?>"><?php echo $respuesta ?></p></td>
+                                <td><?php echo $dat['Estado'] ?></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
                                 <td></td>
                             </tr>
@@ -354,76 +347,7 @@ if (isset($_SESSION["usuario"])) {
     </div>
 </div>    
 
-<!-- Modal Editar -->
-<div class="modal fade" id="modalCRUD2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <form id="formPersonas2">    
-            <div class="modal-body">
-                <div class="form-group">
-                <label for="nombre" class="col-form-label">Codigo:</label>
-                <select name="codigo" id="Usuario_codigo3" class="form-control">
-                                        <option value="">Codigo</option>
-                                        <?php
-                                            foreach($data2 as $dat)
-                                            {
-                                        ?>
-                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
-                                        <?php        
-                                            }
-                                        ?>
-                                    </select>
-                </div>
-                <div class="form-group">
-                <label for="pais" class="col-form-label">Direccion:</label>
-                <input type="text" class="form-control" id="Direccion_Llegada3">
-                </div>                
-                <div class="form-group">
-                <label for="edad" class="col-form-label">Distrito:</label>
-                <input type="text" class="form-control" id="Distrito3">
-                </div>   
-                <div class="form-group">
-                <label for="nombre" class="col-form-label">Latitud:</label>
-                <input type="float" class="form-control" id="Latitud3">
-                </div>
-                <div class="form-group">
-                <label for="pais" class="col-form-label">Longitud:</label>
-                <input type="float" class="form-control" id="Longitud3">
-                </div>                
-                <div class="form-group">
-                <label for="edad" class="col-form-label">Guia_Trans:</label>
-                <input type="number" class="form-control" id="Guia_Trans3">
-                </div>
-                <div class="form-group">
-                <label for="nombre" class="col-form-label">Guia_Remi:</label>
-                <input type="number" class="form-control" id="Guia_Remi3">
-                </div>
-                <div class="form-group">
-                <label for="pais" class="col-form-label">Guia_Cliente:</label>
-                <input type="number" class="form-control" id="Guia_Cliente3">
-                </div>                
-                <div class="form-group">
-                <label for="edad" class="col-form-label">Estado:</label>
-                <input type="text" class="form-control" id="Estado3">
-                </div>       
-                <div class="form-group">
-                <label for="edad" class="col-form-label">Observaciones:</label>
-                <input type="text" class="form-control" id="Observaciones3">
-                </div>     
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
-            </div>
-        </form>    
-        </div>
-    </div>
-</div>  
+ 
 
 <!-- Modal Detalles-->
 <div class="modal fade" id="modalVER" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

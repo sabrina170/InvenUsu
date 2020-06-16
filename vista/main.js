@@ -71,22 +71,22 @@ $(document).on("click", ".btnEditar", function(){
     Observaciones = fila.find('td:eq(10)').text();
     
     
-    $("#Usuario_codigo3").val(Usuario_codigo);
-    $("#Direccion_Llegada3").val(Direccion_Llegada);
-    $("#Distrito3").val(Distrito);
-    $("#Latitud3").val(Latitud);
-    $("#Longitud3").val(Longitud);
-    $("#Guia_Trans3").val(Guia_Trans);
-    $("#Guia_Remi3").val(Guia_Remi);
-    $("#Guia_Cliente3").val(Guia_Cliente);
-    $("#Estado3").val(Estado);
-    $("#Observaciones3").val(Observaciones);
+    $("#Usuario_codigo").val(Usuario_codigo);
+    $("#Direccion_Llegada").val(Direccion_Llegada);
+    $("#Distrito").val(Distrito);
+    $("#Latitud").val(Latitud);
+    $("#Longitud").val(Longitud);
+    $("#Guia_Trans").val(Guia_Trans);
+    $("#Guia_Remi").val(Guia_Remi);
+    $("#Guia_Cliente").val(Guia_Cliente);
+    $("#Estado").val(Estado);
+    $("#Observaciones").val(Observaciones);
     opcion = 2; //editar
     
     $(".modal-header").css("background-color", "#007bff");
     $(".modal-header").css("color", "white");
     $(".modal-title").text("Editar Persona");            
-    $("#modalCRUD2").modal("show");  
+    $("#modalCRUD").modal("show");  
     
 });
 //botón VERDETALLES
@@ -194,56 +194,10 @@ $("#formPersonas").submit(function(e){
         }        
     });
     $("#modalCRUD").modal("hide");
-    window.location.replace("admin.php");
+    window.location.replace("admin.php"); 
 });    
 
-$("#formPersonas2").submit(function(e){
-    e.preventDefault();    
-    Usuario_codigo = $.trim($("#Usuario_codigo").val());
-    Direccion_Llegada = $.trim($("#Direccion_Llegada").val());
-    Distrito = $.trim($("#Distrito").val()); 
-    Latitud = $.trim($("#Latitud").val());    
-    Longitud = $.trim($("#Longitud").val());    
-    Guia_Trans = $.trim($("#Guia_Trans").val());    
-    Guia_Remi = $.trim($("#Guia_Remi").val());    
-    Guia_Cliente = $.trim($("#Guia_Cliente").val());    
-    Estado = $.trim($("#Estado").val());  
-    Observaciones = $.trim($("#Observaciones").val());  
-    $.ajax({
-        url: "bd/crud.php",
-        type: "POST",
-        dataType: "json",
-        data: {Usuario_codigo:Usuario_codigo, 
-            Direccion_Llegada:Direccion_Llegada,
-            Distrito:Distrito,Latitud:Latitud,
-            Longitud:Longitud, Guia_Trans:Guia_Trans,
-            Guia_Remi:Guia_Remi,Guia_Cliente:Guia_Cliente,
-            Estado:Estado,Observaciones:Observaciones,
-            idEntrega:idEntrega, opcion:opcion},
-        success: function(data){  
-            console.log(data);
-            idEntrega = data[0].idEntrega;            
-            Usuario_codigo = data[0].Usuario_codigo;
-            Direccion_Llegada = data[0].Direccion_Llegada;
-            Distrito = data[0].Distrito;
-            Latitud = data[0].Latitud;
-            Longitud = data[0].Longitud;
-            Guia_Trans = data[0].Guia_Trans;
-            Guia_Remi = data[0].Guia_Remi;
-            Guia_Cliente = data[0].Guia_Cliente;
-            Estado = data[0].Estado;
-            Observaciones = data[0].Observaciones;
-            
-            if(opcion == 1){tablaPersonas.row.add([idEntrega,Usuario_codigo,Direccion_Llegada,
-                Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}
-            else{tablaPersonas.row(fila).data([idEntrega,Usuario_codigo,Direccion_Llegada,
-                Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}               
-        }        
-    });
-    $("#modalCRUD2").modal("hide");
-});    
+   
 
 $("#form").submit(function(e){
     e.preventDefault();    
