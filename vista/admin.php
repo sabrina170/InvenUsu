@@ -275,8 +275,7 @@ if (isset($_SESSION["usuario"])) {
     </div>    
       
       
-
-<!--Modal para Insertar-->
+<!-- Insertar y editar-->
 <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -287,66 +286,51 @@ if (isset($_SESSION["usuario"])) {
             </div>
         <form id="formPersonas">    
             <div class="modal-body">
-                
-                <div class="row">
-                <div class="col">
-                    <label for="nombre" class="col-form-label">Codigo:</label>
-                    <select name="codigo" id="Usuario_codigo" class="form-control">
-                                            <option value="">Codigo</option>
-                                            <?php
-                                                foreach($data2 as $dat)
-                                                {
-                                            ?>
-                                                <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
-                                            <?php        
-                                                }
-                                            ?>
-                    </select>
+                <div class="form-group">
+                <label for="nombre" class="col-form-label">Codigo:</label>
+                <select name="codigo" id="Usuario_codigo" class="form-control">
+                                        <option value="">Codigo</option>
+                                        <?php
+                                            foreach($data2 as $dat)
+                                            {
+                                        ?>
+                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
+                                        <?php        
+                                            }
+                                        ?>
+                                    </select>
                 </div>
-                <div class="col">
-                <label for="edad" class="col-form-label">Distrito:</label>
-                <imput type="text" class="form-control" id="Distrito">
-                  
-                </div>
-                </div>
-
-
                 <div class="form-group">
                 <label for="pais" class="col-form-label">Direccion:</label>
                 <input type="text" class="form-control" id="Direccion_Llegada">
+                </div>                
+                <div class="form-group">
+                <label for="edad" class="col-form-label">Distrito:</label>
+                <input type="text" class="form-control" id="Distrito">
                 </div>   
-
-
-                <div class="row">
-                <div class="col">
+                <div class="form-group">
                 <label for="nombre" class="col-form-label">Latitud:</label>
                 <input type="float" class="form-control" id="Latitud">
                 </div>
-                <div class="col">
+                <div class="form-group">
                 <label for="pais" class="col-form-label">Longitud:</label>
                 <input type="float" class="form-control" id="Longitud">
-                </div>  
-                </div>
-
-                <div class="row">
-                <div class="col">
+                </div>                
+                <div class="form-group">
                 <label for="edad" class="col-form-label">Guia_Trans:</label>
                 <input type="number" class="form-control" id="Guia_Trans">
                 </div>
-                <div class="col">
+                <div class="form-group">
                 <label for="nombre" class="col-form-label">Guia_Remi:</label>
                 <input type="number" class="form-control" id="Guia_Remi">
                 </div>
-                <div class="col">
+                <div class="form-group">
                 <label for="pais" class="col-form-label">Guia_Cliente:</label>
                 <input type="number" class="form-control" id="Guia_Cliente">
-                </div>     
-                </div>
-
-
+                </div>                
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Estado:</label>
-                <input class="form-control" id="Estado" class="form-control">
+                <input type="text" class="form-control" id="Estado">
                 </div>       
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Observaciones:</label>
@@ -360,7 +344,7 @@ if (isset($_SESSION["usuario"])) {
         </form>    
         </div>
     </div>
-</div>  
+</div>    
 
 <!-- Modal Detalles-->
 <div class="modal fade" id="modalVER" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
