@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `entregas` (
   `idEntrega` int(11) NOT NULL,
-  `Usuario_id` int(11) DEFAULT NULL,
+  `Usuario_codigo` int(11) DEFAULT NULL,
   `Direccion_Llegada` varchar(45) DEFAULT NULL,
   `Distrito` varchar(45) DEFAULT NULL,
   `Latitud` double DEFAULT NULL,
@@ -48,8 +48,8 @@ CREATE TABLE `entregas` (
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `codigo` int(8) NOT NULL,
+  `codigo` int(11) NOT NULL,
+  `codigonum` int(8) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `codigo`, `nombre`, `usuario`, `email`, `password`, `privilegio`, `fecha_registro`) VALUES
+INSERT INTO `usuarios` (`codigo`, `codigonum`, `nombre`, `usuario`, `email`, `password`, `privilegio`, `fecha_registro`) VALUES
 (1, 75019754, 'Raul Aliaga', 'raula', 'raul.aliaga.s@tecsup.edu.pe', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2016-08-18 03:59:20');
 
 --
