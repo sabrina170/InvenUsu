@@ -106,7 +106,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  ADD CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`Usuario_id`) REFERENCES `usuarios` (`id`);
+  ADD CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`Usuario_codigo`) REFERENCES `usuarios` (`codigo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
