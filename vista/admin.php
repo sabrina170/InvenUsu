@@ -5,19 +5,14 @@ $conexion = $objeto->Conectar();
 
         $condition	=	'';
         if(isset($_REQUEST['xid']) and $_REQUEST['xid']!=""){
-			$condition	.=	' AND Id LIKE "%'.$_REQUEST['xid'].'%" ';
+			$condition	.=	' AND idEntrega LIKE "%'.$_REQUEST['xid'].'%" ';
 		}
-        if(isset($_REQUEST['xfecha']) and $_REQUEST['xfecha']!=""){
-			$condition	.=	' AND Fecha_Cliente LIKE "%'.$_REQUEST['xfecha'].'%" ';
-		}
-		if(isset($_REQUEST['xcodigo']) and $_REQUEST['xcodigo']!=""){
-			$condition	.=	' AND Cod_Cliente LIKE "%'.$_REQUEST['xcodigo'].'%" ';
-		}
-		if(isset($_REQUEST['xnombre']) and $_REQUEST['xnombre']!=""){
-			$condition	.=	' AND Nombre_Cliente LIKE "%'.$_REQUEST['xnombre'].'%" ';
-        }
+        
         if(isset($_REQUEST['xdireccion']) and $_REQUEST['xdireccion']!=""){
 			$condition	.=	' AND Direccion_Llegada LIKE "%'.$_REQUEST['xdireccion'].'%" ';
+        }
+        if(isset($_REQUEST['xcodigo']) and $_REQUEST['xcodigo']!=""){
+			$condition	.=	' AND codigonum LIKE "%'.$_REQUEST['xcodigo'].'%" ';
         }
         if(isset($_REQUEST['xdistrito']) and $_REQUEST['xdistrito']!=""){
 			$condition	.=	' AND Distrito LIKE "%'.$_REQUEST['xdistrito'].'%" ';
@@ -29,7 +24,7 @@ $conexion = $objeto->Conectar();
 			$condition	.=	' AND Longitud LIKE "%'.$_REQUEST['xlongitud'].'%" ';
         }
         if(isset($_REQUEST['xguiatrans']) and $_REQUEST['xguiatrans']!=""){
-			$condition	.=	' AND Gui_Trans LIKE "%'.$_REQUEST['xguiatrans'].'%" ';
+			$condition	.=	' AND Guia_Trans LIKE "%'.$_REQUEST['xguiatrans'].'%" ';
         }
         if(isset($_REQUEST['xguiaremi']) and $_REQUEST['xguiaremi']!=""){
 			$condition	.=	' AND Guia_Remi LIKE "%'.$_REQUEST['xguiaremi'].'%" ';
@@ -41,7 +36,7 @@ $conexion = $objeto->Conectar();
 			$condition	.=	' AND Estado LIKE "%'.$_REQUEST['xestado'].'%" ';
 		}
 
-        $consulta="SELECT * from Entregas WHERE 1".$condition."";
+        $consulta="SELECT * from Entregas";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +48,7 @@ $conexion = $objeto->Conectar();
 
         $consulta3="SELECT e.idEntrega, usuario.codigonum, e.Direccion_Llegada,
         e.Distrito, e.Latitud, e.Longitud, e.Guia_Trans, e.Guia_Remi, e.Guia_Cliente, e.Estado, e.Observaciones FROM 
-         entregas e JOIN usuarios  usuario ON e.Usuario_codigo= usuario.codigo;";
+         entregas e JOIN usuarios  usuario ON e.Usuario_codigo= usuario.codigo WHERE 1".$condition."";
         $resultado3 = $conexion->prepare($consulta3);
         $resultado3->execute();
         $data3=$resultado3->fetchAll(PDO::FETCH_ASSOC);
@@ -62,14 +57,14 @@ $conexion = $objeto->Conectar();
 
 
         if(isset($_POST["export_data"])) {
-            if(!empty($data)) {
+            if(!empty($data3)) {
             $filename = "reporte_entregas.xls";
             header("Content-Type: application/vnd.ms-excel");
             header("Content-Disposition: attachment; filename=".$filename);
            
             $mostrar_columnas = false;
            
-            foreach($data as $dat) {
+            foreach($data3 as $dat) {
             if(!$mostrar_columnas) {
             echo implode("\t", array_keys($dat)) . "\n";
             $mostrar_columnas = true;
@@ -116,10 +111,7 @@ $conexion = $objeto->Conectar();
   
   </head>
 
-  <body>
-  <header>
-         <h4 class="text-center text-light"><i class="fa fa-car"></i> Inventario</h4> 
-     </header> 
+  <body> 
   <?php
 if (isset($_SESSION["usuario"])) {
     if ($_SESSION["usuario"]["privilegio"] == 2) {
@@ -130,27 +122,27 @@ if (isset($_SESSION["usuario"])) {
 }
 ?>
 
-     
+<!--Menuuu-->
+<nav class="navbar navbar-success bg-success">
+    <img src="Images/logo.jpeg" style="height:60px; width:120px;" alt="">
+  <form class="form-inline">
+  <a href="cerrar-sesion.php" class="btn btn-light">Cerrar sesión</a>
+  </form>
+</nav>
 
+     
+<!-- Header-->
 <div class="container">
-	<div class="starter-template">
-		<br>
-		<br>
-		<br>
-		<div class="jumbotron">
 			<div class="container text-center">
 				<h1><strong>Bienvenido</strong> <?php echo $_SESSION["usuario"]["nombre"]; ?></h1>
-				<p>Panel de control | <span class="label label-info"><?php echo $_SESSION["usuario"]["privilegio"] == 1 ? 'Admin' : 'Cliente'; ?></span></p>
-				<p>
-					<a href="cerrar-sesion.php" class="btn btn-primary btn-lg">Cerrar sesión</a>
-				</p>
+				<p>Panel de control | <span class="btn btn-warning"><?php echo $_SESSION["usuario"]["privilegio"] == 1 ? 'Admin' : 'Cliente'; ?></span></p>
 			</div>
-		</div>
-	</div>
 </div><!-- /.container -->
 
    
+<!-- Buscador de Admin-->
 <div class="container2" style="margin:20px; border: 3px #142538 inset;">
+
             <form method="post" style="margin:20px">
             <div class="form-row">
             <div class="col">
@@ -166,9 +158,6 @@ if (isset($_SESSION["usuario"])) {
             <div class="col">
                 <input type="number"class="form-control" placeholder="Codigo" name="xcodigo"/>
             </div>    
-            <div class="col">
-				<input type="text" class="form-control" placeholder="Nombre" name="xnombre"/>
-            </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Direccion" name="xdireccion"/>
             </div>
@@ -218,17 +207,16 @@ if (isset($_SESSION["usuario"])) {
                                     </div>
             </div>
             <br>
-            <div class="form-row">
+            
             <div class="col">
-				<button style="margin-left:1153px" class="btn btn-info"name="buscar" type="submit"><i class="fa fa-search" aria-hidden="true"></i>Consultar</button>
+				<button style="margin-left:1153px" class="btn btn-info" name="buscar" type="submit"><i class="fa fa-search" aria-hidden="true"></i>Consultar</button>
             </div>
-            </div>
+            
             
 			</form>
     </div>      
     
-                
-              
+  <!-- tabla de entregas -->
 <div class="container2" style="margin:20px; border-bolor:green;">
         <div class="row" style="margin:10px">
         
@@ -245,16 +233,16 @@ if (isset($_SESSION["usuario"])) {
                         <thead class="text-center">
                             <tr>
                                 <th>Id</th>
-                                <th>Codigo Cliente</th>                                
+                                <th>Codigo</th>                                
                                 <th>Direccion</th>
                                 <th>Distrito</th>  
                                 <th>Latitud</th>  
                                 <th>Longitud</th>  
-                                <th>Guia_trans</th>  
-                                <th>Guia_Remi</th>  
-                                <th>Guia_Cliente</th>
+                                <th>GuiaT</th>  
+                                <th>GuiaR</th>  
+                                <th>GuiaC</th>
                                 <th>Estado</th>  
-                                <th>Observaciones</th>  
+                                <th>Obser.</th>  
                                 <th>Acciones</th>                   
                             </tr>
                         </thead>
@@ -287,6 +275,7 @@ if (isset($_SESSION["usuario"])) {
     </div>    
       
       
+
 <!--Modal para Insertar-->
 <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -298,51 +287,79 @@ if (isset($_SESSION["usuario"])) {
             </div>
         <form id="formPersonas">    
             <div class="modal-body">
-                <div class="form-group">
-                <label for="nombre" class="col-form-label">Codigo:</label>
-                <select name="codigo" id="Usuario_codigo" class="form-control">
-                                        <option value="">Codigo</option>
-                                        <?php
-                                            foreach($data2 as $dat)
-                                            {
-                                        ?>
-                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
-                                        <?php        
-                                            }
-                                        ?>
-                                    </select>
+                
+                <div class="row">
+                <div class="col">
+                    <label for="nombre" class="col-form-label">Codigo:</label>
+                    <select name="codigo" id="Usuario_codigo" class="form-control">
+                                            <option value="">Codigo</option>
+                                            <?php
+                                                foreach($data2 as $dat)
+                                                {
+                                            ?>
+                                                <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
+                                            <?php        
+                                                }
+                                            ?>
+                    </select>
                 </div>
+                <div class="col">
+                <label for="edad" class="col-form-label">Distrito:</label>
+                <select class="form-control" id="Distrito" class="form-control">
+                        <option value="">Distrito</option>
+                         <option value="Chosica">Chosica</option>
+                         <option value="Chaclacayo">Chaclacayo</option>
+                         <option value="Surco">Surco</option>
+                         <option value="Miraflores">Miraflores</option>
+                         <option value="Vitarte">Vitarte</option>
+                                            
+                    </select>
+                </div>
+                </div>
+
+
                 <div class="form-group">
                 <label for="pais" class="col-form-label">Direccion:</label>
                 <input type="text" class="form-control" id="Direccion_Llegada">
-                </div>                
-                <div class="form-group">
-                <label for="edad" class="col-form-label">Distrito:</label>
-                <input type="text" class="form-control" id="Distrito">
                 </div>   
-                <div class="form-group">
+
+
+                <div class="row">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Latitud:</label>
                 <input type="float" class="form-control" id="Latitud">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="pais" class="col-form-label">Longitud:</label>
                 <input type="float" class="form-control" id="Longitud">
-                </div>                
-                <div class="form-group">
+                </div>  
+                </div>
+
+                <div class="row">
+                <div class="col">
                 <label for="edad" class="col-form-label">Guia_Trans:</label>
                 <input type="number" class="form-control" id="Guia_Trans">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Guia_Remi:</label>
                 <input type="number" class="form-control" id="Guia_Remi">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="pais" class="col-form-label">Guia_Cliente:</label>
                 <input type="number" class="form-control" id="Guia_Cliente">
-                </div>                
+                </div>     
+                </div>
+
+
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Estado:</label>
-                <input type="text" class="form-control" id="Estado">
+                <select class="form-control" id="Estado" class="form-control">
+                        <option value="">Estado</option>
+                         <option value="Entregado">Entregado</option>
+                         <option value="Proceso">Proceso</option>
+                         <option value="Falta">Falta</option>
+                                            
+                    </select>
                 </div>       
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Observaciones:</label>
@@ -371,7 +388,7 @@ if (isset($_SESSION["usuario"])) {
         <fieldset disabled> 
         <div class="modal-body">
                 <div class="form-group">
-                <label for="nombre" class="col-form-label">Codigo:</label>
+                <label for="nombre" class="col-form-label">Codigo del Cliente:</label>
                 <input type="number" class="form-control" id="Usuario_codigo2">
                 </div>
                 <div class="form-group">
@@ -466,24 +483,6 @@ if (isset($_SESSION["usuario"])) {
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -504,4 +503,4 @@ if (isset($_SESSION["usuario"])) {
   </body>
 </html>
 
-</html>
+

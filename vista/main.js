@@ -36,6 +36,7 @@ $("#btnNuevo").click(function(){
     $("#modalCRUD").modal("show");        
     idEntrega=null;
     opcion = 1; //alta
+    
    
 
 });    
@@ -190,9 +191,16 @@ $("#formPersonas").submit(function(e){
             else{tablaPersonas.row(fila).data([idEntrega,Usuario_codigo,Direccion_Llegada,
                 Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
                 Estado,Observaciones]).draw();}               
-        }        
+        }
+        // ,
+        // Estado : function(data) {
+        //     return data == 'Entregado'
+        //         ? '<span class="btn btn-primary"></span>'
+        //         : '<span class="btn btn-success"></span>'
+        // }
     });
-    $("#modalCRUD").modal("hide");    
+    $("#modalCRUD").modal("hide");   
+    window.location.replace("admin.php"); 
 });    
 
 $("#form").submit(function(e){
