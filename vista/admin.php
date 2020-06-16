@@ -248,7 +248,15 @@ if (isset($_SESSION["usuario"])) {
                         </thead>
                         <tbody>
                             <?php                            
-                            foreach($data3 as $dat) {                                                        
+                            foreach($data3 as $dat) {
+                                $respuesta = $dat['Estado'];
+                                if($dat['Estado']=='Falta'){
+                                    echo $color="red";
+                                }if($dat['Estado']=='Proceso'){
+                                    echo $color='yellow';
+                                }if($dat['Estado']=='Entregado'){
+                                    echo $color='green';
+                                }                                                        
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
@@ -260,7 +268,7 @@ if (isset($_SESSION["usuario"])) {
                                 <td><?php echo $dat['Guia_Trans'] ?></td>
                                 <td><?php echo $dat['Guia_Remi'] ?></td>   
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
-                                <td><?php echo $dat['Estado'] ?></td>
+                                <td><p color="<?php echo $color ?>"><?php echo $respuesta ?></p></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
                                 <td></td>
                             </tr>
