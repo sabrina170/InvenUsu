@@ -142,16 +142,10 @@ $(document).on("click", ".btnBorrar", function(){
                 tablaPersonas.row(fila.parents('tr')).remove().draw();
             }
         });
-<<<<<<< HEAD
-        window.location.replace("admin.php");
-    }   
-
-=======
         
     }
     window.location.replace("admin.php");   
    
->>>>>>> 5a514721a87ff9ff2cba041997f785e62abdee1b
 });
     
 $("#formPersonas").submit(function(e){
