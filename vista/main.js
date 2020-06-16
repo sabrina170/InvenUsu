@@ -199,8 +199,7 @@ $("#formPersonas").submit(function(e){
         //         : '<span class="btn btn-success"></span>'
         // }
     });
-    $("#modalCRUD").modal("hide");   
-    window.location.replace("admin.php"); 
+    
 });    
 
 $("#form").submit(function(e){

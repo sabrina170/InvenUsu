@@ -61,7 +61,9 @@ $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
 $id=$_SESSION["usuario"]["codigo"];
-$consulta=" SELECT * FROM entregas WHERE Usuario_codigo='$id';";
+$consulta="SELECT e.idEntrega, usuario.codigonum, e.Direccion_Llegada,
+e.Distrito, e.Latitud, e.Longitud, e.Guia_Trans, e.Guia_Remi, e.Guia_Cliente, e.Estado, e.Observaciones FROM 
+ entregas e JOIN usuarios  usuario ON e.Usuario_codigo= usuario.codigo WHERE Usuario_codigo='$id';";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -94,7 +96,7 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
-                                <td><?php echo $dat['Usuario_codigo'] ?></td>
+                                <td><?php echo $dat['codigonum'] ?></td>
                                 <td><?php echo $dat['Direccion_Llegada'] ?></td>
                                 <td><?php echo $dat['Distrito'] ?></td>
                                 <td><?php echo $dat['Latitud'] ?></td>

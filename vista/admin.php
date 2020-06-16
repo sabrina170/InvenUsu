@@ -305,15 +305,8 @@ if (isset($_SESSION["usuario"])) {
                 </div>
                 <div class="col">
                 <label for="edad" class="col-form-label">Distrito:</label>
-                <select class="form-control" id="Distrito" class="form-control">
-                        <option value="">Distrito</option>
-                         <option value="Chosica">Chosica</option>
-                         <option value="Chaclacayo">Chaclacayo</option>
-                         <option value="Surco">Surco</option>
-                         <option value="Miraflores">Miraflores</option>
-                         <option value="Vitarte">Vitarte</option>
-                                            
-                    </select>
+                <imput type="text" class="form-control" id="Distrito">
+                  
                 </div>
                 </div>
 
@@ -353,13 +346,7 @@ if (isset($_SESSION["usuario"])) {
 
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Estado:</label>
-                <select class="form-control" id="Estado" class="form-control">
-                        <option value="">Estado</option>
-                         <option value="Entregado">Entregado</option>
-                         <option value="Proceso">Proceso</option>
-                         <option value="Falta">Falta</option>
-                                            
-                    </select>
+                <input class="form-control" id="Estado" class="form-control">
                 </div>       
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Observaciones:</label>
