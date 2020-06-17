@@ -142,10 +142,9 @@ $(document).on("click", ".btnBorrar", function(){
                 tablaPersonas.row(fila.parents('tr')).remove().draw();
             }
         });
-        
-    }
-    window.location.replace("admin.php");   
-   
+        window.location.replace("admin.php");
+    }   
+
 });
     
 $("#formPersonas").submit(function(e){
@@ -193,11 +192,8 @@ $("#formPersonas").submit(function(e){
                 Estado,Observaciones]).draw();}               
         }        
     });
-    $("#modalCRUD").modal("hide");
-    window.location.replace("admin.php"); 
+    $("#modalCRUD").modal("hide");    
 });    
-
-   
 
 $("#form").submit(function(e){
     e.preventDefault();    

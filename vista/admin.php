@@ -53,7 +53,7 @@ $conexion = $objeto->Conectar();
         $resultado3->execute();
         $data3=$resultado3->fetchAll(PDO::FETCH_ASSOC);
 
-       
+        
 
 
         if(isset($_POST["export_data"])) {
@@ -217,7 +217,8 @@ if (isset($_SESSION["usuario"])) {
     </div>      
     
   <!-- tabla de entregas -->
-<div class="container2" style="margin:20px; border-bolor:green;">
+              
+  <div class="container2" style="margin:20px; border-bolor:green;">
         <div class="row" style="margin:10px">
         
             <!--<a class="btn btn-primary" href="index.php" role="button">Mostrar lista total</a>  --> 
@@ -233,7 +234,7 @@ if (isset($_SESSION["usuario"])) {
                         <thead class="text-center">
                             <tr>
                                 <th>Id</th>
-                                <th>Codigo</th>                                
+                                <th>Cod Cliente</th>                                
                                 <th>Direccion</th>
                                 <th>Distrito</th>  
                                 <th>Latitud</th>  
@@ -248,12 +249,12 @@ if (isset($_SESSION["usuario"])) {
                         </thead>
                         <tbody>
                             <?php                            
-                            foreach($data3 as $dat) {
-                                                                                      
+                            foreach($data as $dat) {  	
+                                                                                     
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
-                                <td><?php echo $dat['codigonum'] ?></td>
+                                <td><?php echo $dat['Usuario_codigo'] ?></td>
                                 <td><?php echo $dat['Direccion_Llegada'] ?></td>
                                 <td><?php echo $dat['Distrito'] ?></td>
                                 <td><?php echo $dat['Latitud'] ?></td>
@@ -276,7 +277,7 @@ if (isset($_SESSION["usuario"])) {
     </div>    
       
       
-<!-- Insertar y editar-->
+<!--Modal para Insertar-->
 <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -290,12 +291,12 @@ if (isset($_SESSION["usuario"])) {
                 <div class="form-group">
                 <label for="nombre" class="col-form-label">Codigo:</label>
                 <select name="codigo" id="Usuario_codigo" class="form-control">
-                                        <option value="">Codigo</option>
+                                        
                                         <?php
                                             foreach($data2 as $dat)
                                             {
                                         ?>
-                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?></option>
+                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?>-<?php echo $dat['nombre'] ?></option>
                                         <?php        
                                             }
                                         ?>
@@ -309,29 +310,42 @@ if (isset($_SESSION["usuario"])) {
                 <label for="edad" class="col-form-label">Distrito:</label>
                 <input type="text" class="form-control" id="Distrito">
                 </div>   
-                <div class="form-group">
+
+                <div class="row">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Latitud:</label>
                 <input type="float" class="form-control" id="Latitud">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="pais" class="col-form-label">Longitud:</label>
                 <input type="float" class="form-control" id="Longitud">
-                </div>                
-                <div class="form-group">
+                </div> 
+                </div>
+
+                <div class="row">               
+                <div class="col">
                 <label for="edad" class="col-form-label">Guia_Trans:</label>
                 <input type="number" class="form-control" id="Guia_Trans">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Guia_Remi:</label>
                 <input type="number" class="form-control" id="Guia_Remi">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="pais" class="col-form-label">Guia_Cliente:</label>
                 <input type="number" class="form-control" id="Guia_Cliente">
-                </div>                
+                </div>  
+                </div>
+
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Estado:</label>
-                <input type="text" class="form-control" id="Estado">
+                <select class="form-control" type="text" id="Estado">
+                <option value="">Estado</option>
+                <option value="Entregado">Entregado</option>
+                <option value="Proceso">Proceso</option>
+                <option value="Stock">Stock</option>
+                <option value="Falta">Falta</option>
+                </select>
                 </div>       
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Observaciones:</label>
@@ -345,9 +359,82 @@ if (isset($_SESSION["usuario"])) {
         </form>    
         </div>
     </div>
-</div>    
+</div>  
 
- 
+<!--Modal para Editar-->
+<!-- <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <form id="formPersonas">    
+            <div class="modal-body">
+
+                <div class="form-row">
+                <div class="col">
+                <label for="pais" class="col-form-label">Codigo: </label>
+                <Select id="Cod_Cliente" for="pais" class="form-control" >
+                <option value="">Codigo</option>
+                </Select>
+                </div>
+                <div class="col">
+                <label for="pais" class="col-form-label">Direccion de Llegada:</label>
+                <input type="text" class="form-control" id="Direccion_Llegada">
+                </div> 
+                </div>
+  
+            
+                <div class="form-row">  
+                <div class="col">
+                <label for="nombre" class="col-form-label">Distrito:</label>
+                <input type="text" class="form-control" id="Distrito">
+                </div>     
+                <div class="col">
+                <label for="edad" class="col-form-label" step='0.01' value='0.00' placeholder='0.00'>Latitud:</label>
+                <input type="float" class="form-control" id="Latitud">
+                </div>  
+                <div class="col">
+                <label for="nombre" class="col-form-label" >Longitud:</label>
+                <input type="float" class="form-control" id="Longitud">
+                </div>
+                </div>
+
+                <div class="form-row">  
+                <div class="col">
+                <label for="pais" class="col-form-label">Gria Transportista:</label>
+                <input type="number" class="form-control" id="Gui_Trans">
+                </div>                
+                <div class="col">
+                <label for="edad" class="col-form-label">Guia Rem:</label>
+                <input type="number" class="form-control" id="Guia_Remi">
+                </div>  
+                <div class="col">
+                <label for="edad" class="col-form-label">Guia Cliente:</label>
+                <input type="number" class="form-control" id="Guia_Cliente">
+                </div>    
+                </div>
+
+
+                <div class="form-group">
+                <label for="edad" class="col-form-label">Estado:</label>
+                <input type="text" class="form-control" id="Estado">
+                </div>  
+                <div class="form-group">
+                <label for="edad" class="col-form-label">Observaciones:</label>
+                <input type="text" class="form-control" id="Observaciones">
+                </div>          
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
+            </div>
+        </form>    
+        </div>
+    </div>
+</div>  -->
 
 <!-- Modal Detalles-->
 <div class="modal fade" id="modalVER" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -362,9 +449,22 @@ if (isset($_SESSION["usuario"])) {
         <fieldset disabled> 
         <div class="modal-body">
                 <div class="form-group">
-                <label for="nombre" class="col-form-label">Codigo del Cliente:</label>
-                <input type="number" class="form-control" id="Usuario_codigo2">
+
+                <label for="nombre" class="col-form-label">Codigo-Nombre del Cliente:</label>
+                <select type="text" class="form-control" id="Usuario_codigo2" >
+                                        
+                                        <?php
+                                            foreach($data2 as $dat)
+                                            {
+                                        ?>
+                                            <option value="<?php echo $dat['codigo'] ?>"><?php echo $dat['codigonum'] ?>-<?php echo $dat['nombre'] ?></option>
+                                        <?php        
+                                            }
+                                        ?>
+                                    </select>
+                
                 </div>
+
                 <div class="form-group">
                 <label for="pais" class="col-form-label">Direccion:</label>
                 <input type="text" class="form-control" id="Direccion_Llegada2">
@@ -373,26 +473,34 @@ if (isset($_SESSION["usuario"])) {
                 <label for="edad" class="col-form-label">Distrito:</label>
                 <input type="text" class="form-control" id="Distrito2">
                 </div>   
-                <div class="form-group">
+
+                <div class="row">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Latitud:</label>
                 <input type="float" class="form-control" id="Latitud2">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="pais" class="col-form-label">Longitud:</label>
                 <input type="float" class="form-control" id="Longitud2">
-                </div>                
-                <div class="form-group">
+                </div>   
+                </div>
+
+                <div class="row">
+                <div class="col">
                 <label for="edad" class="col-form-label">Guia_Trans:</label>
                 <input type="number" class="form-control" id="Guia_Trans2">
                 </div>
-                <div class="form-group">
+                <div class="col">
                 <label for="nombre" class="col-form-label">Guia_Remi:</label>
                 <input type="number" class="form-control" id="Guia_Remi2">
                 </div>
-                <div class="form-group">
+                <div class="fcol">
                 <label for="pais" class="col-form-label">Guia_Cliente:</label>
                 <input type="number" class="form-control" id="Guia_Cliente2">
-                </div>                
+                </div>  
+                </div>
+
+
                 <div class="form-group">
                 <label for="edad" class="col-form-label">Estado:</label>
                 <input type="text" class="form-control" id="Estado2">
@@ -455,7 +563,6 @@ if (isset($_SESSION["usuario"])) {
         </div>
     </div>
 </div>
-
 
      <!-- Bootstrap core JavaScript
     ================================================== -->
