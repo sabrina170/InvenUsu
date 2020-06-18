@@ -250,7 +250,12 @@ if (isset($_SESSION["usuario"])) {
                         <tbody>
                             <?php                            
                             foreach($data as $dat) {  	
-                                                                                     
+                                $estado_color = array(
+                                    'Falta' => '#EF5350',
+                                    'Proceso' => '#F4D03F',
+                                    'Entregado' => '#ABEBC6',
+                                    'Stock' => '#EF5350'
+                                )                                                 
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
@@ -262,7 +267,7 @@ if (isset($_SESSION["usuario"])) {
                                 <td><?php echo $dat['Guia_Trans'] ?></td>
                                 <td><?php echo $dat['Guia_Remi'] ?></td>   
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
-                                <td><?php echo $dat['Estado'] ?></td>
+                                <td bgcolor='<?php echo $estado_color[$dat['Estado']]; ?>'><?php echo $dat['Estado']; ?></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
                                 <td></td>
                             </tr>
@@ -341,10 +346,10 @@ if (isset($_SESSION["usuario"])) {
                 <label for="edad" class="col-form-label">Estado:</label>
                 <select class="form-control" type="text" id="Estado">
                 <option value="">Estado</option>
-                <option value="Entregado">Entregado</option>
-                <option value="Proceso">Proceso</option>
-                <option value="Stock">Stock</option>
-                <option value="Falta">Falta</option>
+                <option value="Entregado" style="color:green">Entregado</option>
+                <option value="Proceso" style="color:yellow">Proceso</option>
+                <option value="Stock" style="color:red">Stock</option>
+                <option value="Falta" style="color:green">Falta</option>
                 </select>
                 </div>       
                 <div class="form-group">
