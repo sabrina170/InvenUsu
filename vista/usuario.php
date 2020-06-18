@@ -63,7 +63,7 @@ $conexion = $objeto->Conectar();
 $id=$_SESSION["usuario"]["codigo"];
 $consulta="SELECT e.idEntrega, usuario.codigonum, e.Direccion_Llegada,
 e.Distrito, e.Latitud, e.Longitud, e.Guia_Trans, e.Guia_Remi, e.Guia_Cliente, e.Estado, e.Observaciones FROM 
- entregas e JOIN usuarios  usuario ON e.Usuario_codigo= usuario.codigo WHERE Usuario_codigo='$id';";
+ entregas e JOIN usuarios  usuario ON e.Usuario_codigo = usuario.codigo WHERE Usuario_codigo='$id';";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -91,8 +91,14 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php                            
-                            foreach($data as $dat) {                                                        
+                            <?php  
+                            $estado_color = array(
+                                'Falta' => '#EF5350',
+                                'Proceso' => '#F4D03F',
+                                'Entregado' => '#ABEBC6',
+                                'Stock' => '#EF5350'
+                            );                              
+                            foreach($data as $dat) {                                                      
                             ?>
                             <tr>
                                 <td><?php echo $dat['idEntrega'] ?></td>
@@ -104,7 +110,7 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo $dat['Guia_Trans'] ?></td>
                                 <td><?php echo $dat['Guia_Remi'] ?></td>   
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
-                                <td><?php echo $dat['Estado'] ?></td>
+                                <td bgcolor='<?php echo $estado_color[$dat['Estado']]; ?>'><?php echo $dat['Estado']; ?></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
                                 
                             </tr>

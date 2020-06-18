@@ -36,7 +36,7 @@ $conexion = $objeto->Conectar();
 			$condition	.=	' AND Estado LIKE "%'.$_REQUEST['xestado'].'%" ';
 		}
 
-        $consulta="SELECT * from Entregas";
+        $consulta="SELECT * from Entregas WHERE 1".$condition."";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
