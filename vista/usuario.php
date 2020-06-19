@@ -92,7 +92,13 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php                            
+                            <?php
+                            $estado_color = array(
+                                'Pendiente' => '#EF5350',
+                                'Resagado' => '#F4D03F',
+                                'Entregado' => '#ABEBC6',
+                                'Stock' => '#EF5350'
+                            );                            
                             foreach($data as $dat) {                                                        
                             ?>
                             <tr>
@@ -105,7 +111,7 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo $dat['Guia_Trans'] ?></td>
                                 <td><?php echo $dat['Guia_Remi'] ?></td>   
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
-                                <td><?php echo $dat['Estado'] ?></td>
+                                <td bgcolor='<?php echo $estado_color[$dat['Estado']]; ?>'><?php echo $dat['Estado'] ?></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
                                 <td><img src="upload/<?php echo $dat['Imagen']?>" height="70px;" width="70px;"></td>
                             </tr>
