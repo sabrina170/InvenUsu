@@ -12,7 +12,7 @@ class Conexion
     {
         try {
 
-            $cn = new PDO("mysql:host=localhost;dbname=inventariobd", "root", "");
+            $cn = new PDO("mysql:host=localhost;dbname=inventariobd2", "root", "");
 
             return $cn;
 

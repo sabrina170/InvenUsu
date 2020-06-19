@@ -1,3 +1,5 @@
+
+
 -- phpMyAdmin SQL Dump
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
@@ -18,7 +20,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `inventariobd`
+-- Base de datos: `inventariobd2`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +40,8 @@ CREATE TABLE `entregas` (
   `Guia_Remi` int(10) DEFAULT NULL,
   `Guia_Cliente` int(10) DEFAULT NULL,
   `Estado` varchar(45) DEFAULT NULL,
-  `Observaciones` varchar(100) DEFAULT NULL
+  `Observaciones` varchar(100) DEFAULT NULL,
+  `Imagen` VARCHAR(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,13 +77,13 @@ INSERT INTO `usuarios` (`codigo`, `codigonum`, `nombre`, `usuario`, `email`, `pa
 --
 ALTER TABLE `entregas`
   ADD PRIMARY KEY (`idEntrega`),
-  ADD KEY `Usuario_id` (`Usuario_id`);
+  ADD KEY `Usuario_codigo` (`Usuario_codigo`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`codigo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -96,7 +99,7 @@ ALTER TABLE `entregas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

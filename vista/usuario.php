@@ -62,7 +62,7 @@ $conexion = $objeto->Conectar();
 
 $id=$_SESSION["usuario"]["codigo"];
 $consulta="SELECT e.idEntrega, usuario.codigonum, e.Direccion_Llegada,
-e.Distrito, e.Latitud, e.Longitud, e.Guia_Trans, e.Guia_Remi, e.Guia_Cliente, e.Estado, e.Observaciones FROM 
+e.Distrito, e.Latitud, e.Longitud, e.Guia_Trans, e.Guia_Remi, e.Guia_Cliente, e.Estado, e.Observaciones,e.Imagen FROM 
  entregas e JOIN usuarios  usuario ON e.Usuario_codigo= usuario.codigo WHERE Usuario_codigo='$id';";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
@@ -87,6 +87,7 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                                 <th>GuiaC</th>
                                 <th>Estado</th>  
                                 <th>Observaciones</th>  
+                                <th>Imagen</th> 
                                                    
                             </tr>
                         </thead>
@@ -106,7 +107,7 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo $dat['Guia_Cliente'] ?></td>
                                 <td><?php echo $dat['Estado'] ?></td>
                                 <td><?php echo $dat['Observaciones'] ?></td>
-                                
+                                <td><img src="upload/<?php echo $dat['Imagen']?>" height="70px;" width="70px;"></td>
                             </tr>
                             <?php
                                 }

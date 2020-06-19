@@ -49,6 +49,8 @@ $("#btnUsuario").click(function(){
     $("#modalUSU").modal("show");        
     codigo=null;
     opcion = 5; //alta
+
+    
    
 
 }); 
@@ -69,6 +71,7 @@ $(document).on("click", ".btnEditar", function(){
     Guia_Cliente = parseInt(fila.find('td:eq(8)').text());
     Estado = fila.find('td:eq(9)').text();
     Observaciones = fila.find('td:eq(10)').text();
+    Imagen = fila.find('td:eq(11)').text();
     
     
     $("#Usuario_codigo").val(Usuario_codigo);
@@ -80,7 +83,18 @@ $(document).on("click", ".btnEditar", function(){
     $("#Guia_Remi").val(Guia_Remi);
     $("#Guia_Cliente").val(Guia_Cliente);
     $("#Estado").val(Estado);
-    $("#Observaciones").val(Observaciones);
+    $("#Observaciones").val(Observaciones);  
+    $('#Imagen').val(Imagen).split('.').pop().toLowerCase();
+    
+    if(Imagen != '')
+		{
+			if(jQuery.inArray(Imagen, ['gif','png','jpg','jpeg']) == -1)
+			{
+				alert("Invalid Image File");
+				$('#Imagen').val('');
+				return false;
+			}
+		}	
     opcion = 2; //editar
     
     $(".modal-header").css("background-color", "#007bff");
@@ -104,6 +118,7 @@ $(document).on("click", ".btnVer", function(){
     Guia_Cliente = parseInt(fila.find('td:eq(8)').text());
     Estado = fila.find('td:eq(9)').text();
     Observaciones = fila.find('td:eq(10)').text();
+    Imagen = fila.find('td:eq(11)').text();
     
     
     $("#Usuario_codigo2").val(Usuario_codigo);
@@ -116,6 +131,7 @@ $(document).on("click", ".btnVer", function(){
     $("#Guia_Cliente2").val(Guia_Cliente);
     $("#Estado2").val(Estado);
     $("#Observaciones2").val(Observaciones);
+    $("#Imagen2").val(Imagen);
     opcion = 4; //ver detalles
     
     $(".modal-header").css("background-color", "green");
@@ -159,6 +175,7 @@ $("#formPersonas").submit(function(e){
     Guia_Cliente = $.trim($("#Guia_Cliente").val());    
     Estado = $.trim($("#Estado").val());  
     Observaciones = $.trim($("#Observaciones").val());  
+    Imagen = $.trim($("#Imagen").val()); 
     $.ajax({
         url: "bd/crud.php",
         type: "POST",
@@ -168,7 +185,7 @@ $("#formPersonas").submit(function(e){
             Distrito:Distrito,Latitud:Latitud,
             Longitud:Longitud, Guia_Trans:Guia_Trans,
             Guia_Remi:Guia_Remi,Guia_Cliente:Guia_Cliente,
-            Estado:Estado,Observaciones:Observaciones,
+            Estado:Estado,Observaciones:Observaciones,Imagen:Imagen,
             idEntrega:idEntrega, opcion:opcion},
         success: function(data){  
             console.log(data);
@@ -183,13 +200,15 @@ $("#formPersonas").submit(function(e){
             Guia_Cliente = data[0].Guia_Cliente;
             Estado = data[0].Estado;
             Observaciones = data[0].Observaciones;
+            Imagen = data[0].Imagen;
+            fecha = data[0].fecha;
             
             if(opcion == 1){tablaPersonas.row.add([idEntrega,Usuario_codigo,Direccion_Llegada,
                 Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}
+                Estado,Observaciones,Imagen,fecha]).draw();}
             else{tablaPersonas.row(fila).data([idEntrega,Usuario_codigo,Direccion_Llegada,
                 Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}               
+                Estado,Observaciones,Imagen,fecha]).draw();}               
         }        
     });
     $("#modalCRUD").modal("hide");    
@@ -206,7 +225,8 @@ $("#form").submit(function(e){
     Guia_Remi = $.trim($("#Guia_Remi").val());    
     Guia_Cliente = $.trim($("#Guia_Cliente").val());    
     Estado = $.trim($("#Estado").val());  
-    Observaciones = $.trim($("#Observaciones").val());  
+    Observaciones = $.trim($("#Observaciones").val()); 
+    Imagen = $.trim($("#Imagen").val()); 
     $.ajax({
         url: "bd/crud.php",
         type: "POST",
@@ -216,7 +236,7 @@ $("#form").submit(function(e){
             Distrito:Distrito,Latitud:Latitud,
             Longitud:Longitud, Guia_Trans:Guia_Trans,
             Guia_Remi:Guia_Remi,Guia_Cliente:Guia_Cliente,
-            Estado:Estado,Observaciones:Observaciones,
+            Estado:Estado,Observaciones:Observaciones,Imagen:Imagen,fecha:fecha,
             idEntrega:idEntrega, opcion:opcion},
         success: function(data){  
             console.log(data);
@@ -231,13 +251,15 @@ $("#form").submit(function(e){
             Guia_Cliente = data[0].Guia_Cliente;
             Estado = data[0].Estado;
             Observaciones = data[0].Observaciones;
+            Imagen = data[0].Imagen;
+            fecha = data[0].fecha;
             
             if(opcion == 1){tablaPersonas.row.add([idEntrega,Usuario_codigo,Direccion_Llegada,
                 Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}
+                Estado,Observaciones,Imagen,fecha]).draw();}
             else{tablaPersonas.row(fila).data([idEntrega,Usuario_codigo,Direccion_Llegada,
                 Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-                Estado,Observaciones]).draw();}            
+                Estado,Observaciones,Imagen,fecha]).draw();}            
         }        
     }); 
     $("#modalVER").modal("hide");   
@@ -277,6 +299,7 @@ $("#formUsu").submit(function(e){
         }        
     }); 
     $("#modalUSU").modal("hide");   
+    alert("Usuario grabado exitosamente");
 });    
 
 //end formUsu

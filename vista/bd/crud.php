@@ -16,6 +16,8 @@ $Guia_Remi = (isset($_POST['Guia_Remi'])) ? $_POST['Guia_Remi'] : '';
 $Guia_Cliente = (isset($_POST['Guia_Cliente'])) ? $_POST['Guia_Cliente'] : '';
 $Estado = (isset($_POST['Estado'])) ? $_POST['Estado'] : '';
 $Observaciones = (isset($_POST['Observaciones'])) ? $_POST['Observaciones'] : '';
+$Imagen = (isset($_FILES['Imagen'])) ? $_FILES['Imagen'] : '';
+$fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 
 //--------------DE USUARIOO--------------------------
 
@@ -29,16 +31,29 @@ $privilegio = (isset($_POST['privilegio'])) ? $_POST['privilegio'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
+
+
+
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO `entregas` (`idEntrega`, `Usuario_codigo`, `Direccion_Llegada`,
-        `Distrito`, `Latitud`, `Longitud`, `Guia_Trans`, `Guia_Remi`, `Guia_Cliente`,
-         `Estado`, `Observaciones`) VALUES ('$idEntrega', '$Usuario_codigo', '$Direccion_Llegada',
+        
+     
+
+        $consulta = "INSERT INTO `entregas`(`idEntrega`, `Usuario_codigo`, `Direccion_Llegada`,
+         `Distrito`, `Latitud`, `Longitud`, `Guia_Trans`, `Guia_Remi`, `Guia_Cliente`, 
+         `Estado`, `Observaciones`, `Imagen`, `fecha`) VALUES ('$idEntrega', '$Usuario_codigo', '$Direccion_Llegada',
           '$Distrito', '$Latitud', '$Longitud', '$Guia_Trans', '$Guia_Remi', '$Guia_Cliente',
-          ' $Estado', '$Observaciones'); ";			
+          ' $Estado', '$Observaciones','$Imagen',current_timestamp() ); ";	
+      
+          
+
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
+       // move_uploaded_file($Imagen['tbm_name'],$ruta);
+        copy($Imagen['tmp_name'], $ruta);
+
+        
         $consulta = "SELECT * FROM entregas ORDER BY idEntrega DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -48,13 +63,11 @@ switch($opcion){
         $consulta = "UPDATE Entregas SET Usuario_codigo='$Usuario_codigo', Direccion_Llegada='$Direccion_Llegada',
          Distrito='$Distrito',
          Latitud='$Latitud', Longitud='$Longitud', Guia_Trans='$Guia_Trans',Guia_Remi='$Guia_Remi',
-         Guia_Cliente='$Guia_Cliente', Estado='$Estado' , Observaciones='$Observaciones' WHERE idEntrega='$idEntrega' ";		
+         Guia_Cliente='$Guia_Cliente', Estado='$Estado' , Observaciones='$Observaciones', Imagen='$Imagen'  WHERE idEntrega='$idEntrega' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT idEntrega,Usuario_codigo,Direccion_Llegada,
-        Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-        Estado,Observaciones FROM entregas WHERE idEntrega='$idEntrega' ";       
+        $consulta = "SELECT * FROM entregas WHERE idEntrega='$idEntrega' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -68,13 +81,11 @@ switch($opcion){
         $consulta = "UPDATE Entregas SET Usuario_codigo='$Usuario_codigo', Direccion_Llegada='$Direccion_Llegada',
          Distrito='$Distrito',
          Latitud='$Latitud', Longitud='$Longitud', Guia_Trans='$Guia_Trans',Guia_Remi='$Guia_Remi',
-         Guia_Cliente='$Guia_Cliente', Estado='$Estado' , Observaciones='$Observaciones' WHERE idEntrega='$idEntrega' ";		
+         Guia_Cliente='$Guia_Cliente', Estado='$Estado' , Observaciones='$Observaciones', Imagen='$Imagen' WHERE idEntrega='$idEntrega' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT idEntrega,Usuario_codigo,Direccion_Llegada,
-        Distrito,Latitud,Longitud,Guia_Trans,Guia_Remi,Guia_Cliente,
-        Estado,Observaciones FROM entregas WHERE idEntrega='$idEntrega' ";       
+        $consulta = "SELECT * FROM entregas WHERE idEntrega='$idEntrega' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
